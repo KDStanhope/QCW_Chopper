@@ -1,0 +1,17 @@
+def chop_qcw_file(input_file, output_file, n):
+    '''
+needs: input filename, output file and
+how many megabytes of data to skip
+    '''
+    with open(input_file, 'rb') as f:
+        header = f.read(400)
+        offset = n * 1024 * 1024
+        f.seek(offset, 1)
+        rest_of_file = f.read()
+    new_content = header + rest_of_file
+   
+    with open(output_file, 'wb') as f:
+        f.write(new_content)
+
+## Example usage
+chop_qcw_file('20231124_124745.qcw', '20231124_124745_trimmed.qcw', 100)
